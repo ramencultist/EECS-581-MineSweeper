@@ -1,0 +1,17 @@
+Hours Estimation Methodology:
+To estimate hours we used the planned poker method to give an estimate of the effort of each of the modules. To convert
+this to an estimate of person-hours as required by grading criteria, we applied a productivity rate to the estimates.
+We agreed upon an estimate number of .75 hours per effort point. For example an effort of 8 would be 6 person hours. Our
+estimates of difficulty included documentation and testing.
+
+As noted in the materials from Professor Saiedian, the estimate of hours is likely to be wrong, however we endeavored
+to create a clear and well-justified estimate. Estimates could be proven wrong from difficulties that arise from
+uncertainty.
+
+Estimated Hours:
+UI -> 8 (effort) * .75 (person-hours per effort) = 6 person-hours
+Board Manager -> 2 (effort) * .75 (person-hours per effort) = 1.5 person-hours
+Game Logic -> 5 (effort) * .75 (person-hours per effort) = 3.75 person-hours
+Meetings -> 2 hour-long meetings * 7 members = 14 person-hours
+
+Total Estimated Hours: 25.25 Person-hours
