@@ -1,0 +1,57 @@
+Meeting 1 - 9/9/2026
+Location: Eaton 3001
+Objective: Meet with Huy; Discuss initial project details
+Atttendence: Luke, Alex, Carter, Blake, Drew, Kyle, Kyler
+Details: Today we discussed which roles each group member is responsible for and what language we will be using to create our Minesweeper Project.
+
+Language/Platform
+	Our group decided on using Python + The Python Arcade Library to create our project. This will allow us to create a unique UI design and allow the team to expirement with tools
+	that none of the group has used before. This will introduce some extra challenge to the project but should allow our final product to stand out from the rest.  
+
+Role Assignments
+	Luke Reicherter - Scrum Master
+		Purpose: Keep team members updated on meeting times and deadlines, help team follow Scrum and Agile priciples, and ensure quality.
+	Other Members - TBD
+		Reason: This decision will be made at a later date, and this form will be updated to reflect the assignments.
+
+Person-Hours Estimations
+        Each group member was asked to pick a number in the fibonacci sequence to represent the difficulty of a specific task in the project. Results are as follows: 
+        
+        Estimations for UI:
+                Alex - 13
+                        Reasoning: UI is always hard to develop + we are using a library that none of us have used before
+                Carter - 5
+                        Reasoning: Python is pretty easy and he has designed UIs before easily (just made a UI in python in a different class)
+                Drew - 8 
+                Blake - 5
+                Kyler - 8
+                Kyle - 8   
+                Luke - 8   
+                -----------
+                Overall Agreement - 8
+        
+        Estimations for Board Manager:
+                Alex - 3
+                        Reasoning: Data component with very little actual logic
+                Carter - 2
+                Drew - 2 
+                Blake - 2
+`               Kyler - 2
+                Kyle - 2   
+                Luke - 2   
+                -----------
+                Overall Agreement - 2
+        
+        Estimations for Game Logic:
+                Alex - 5  
+                Carter - 5
+                Drew - 5 
+                Blake - 5
+                Kyler - 5
+                Kyle - 5     
+                Luke - 5   
+                -----------
+                Overall Agreement - 5
+
+Tasks Allocated
+	Everyone - Continue to write up and discuss project implementation ideas. Discuss ideas in signal group chat. Talk about potential role assignments later this week. 
