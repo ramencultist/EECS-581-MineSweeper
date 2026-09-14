@@ -53,6 +53,10 @@ class Cell:
     def remove_flag(self) -> None:
         self._flagged = False
 
-class Board:
+class BoardManager:
     def __init__(self) -> None:
         self.board = [[Cell() for _ in range(BOARD_SIZE)] for _ in range(BOARD_SIZE)]
+
+    def set_mines(self, mines: list[tuple]) -> None:
+        for mine_location in mines:
+            self.board[mine_location[0]][mine_location[1]].set_mine()
