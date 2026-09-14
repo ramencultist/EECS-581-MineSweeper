@@ -26,17 +26,17 @@ class Cell:
     def __init__(self):
         self._covered = True
         self._flagged = False
-        self._mine = False
+        self._is_mine = False
 
     # Getters
 
-    def isMine(self):
-        return self._mine
+    def is_mine(self):
+        return self._is_mine
 
-    def isCovered(self):
+    def is_covered(self):
         return self._covered
 
-    def isFlagged(self):
+    def is_flagged(self):
         return self._flagged
 
     # Setters
@@ -44,13 +44,13 @@ class Cell:
     def uncover(self):
         self._covered = False
 
-    def setMine(self):
-        self._mine = True
+    def set_mine(self):
+        self._is_mine = True
 
-    def setFlagged(self):
+    def set_flagged(self):
         self._flagged = True
 
-    def unFlag(self):
+    def remove_flag(self):
         self._flagged = False
 
 class BoardManager:
