@@ -20,43 +20,39 @@ BOARD_SIZE = 10
 
 class Cell:
     """
-    Cell class holds the states of each individual cell, and has functions for getting and setting these states.
+    Cell class holds the states of each individual cell
     Code is original written by Drew Medlock
     """
     def __init__(self) -> None:
-        self._covered = True
-        self._flagged = False
-        self._is_mine = False
-
-    # Getters
-
-    def is_mine(self) -> bool:
-        return self._is_mine
-
-    def is_covered(self) -> bool:
-        return self._covered
-
-    def is_flagged(self) -> bool:
-        return self._flagged
-
-    # Setters
-
-    def uncover(self):
-        self._covered = False
-
-    def set_mine(self) -> None:
-        self._is_mine = True
-
-    def set_flagged(self) -> None:
-        self._flagged = True
-
-    def remove_flag(self) -> None:
-        self._flagged = False
+        self.covered = True
+        self.flagged = False
+        self.is_mine = False
 
 class BoardManager:
     def __init__(self) -> None:
         self.board = [[Cell() for _ in range(BOARD_SIZE)] for _ in range(BOARD_SIZE)]
 
+    def is_mine(self, row: int, col: int) -> bool:
+        return self.board[row][col].is_mine
+
+    def is_covered(self, row: int, col: int) -> bool:
+        return self.board[row][col].covered
+
+    def is_flagged(self, row: int, col: int) -> bool:
+        return self.board[row][col].flagged
+
+    def uncover_cell(self, row: int, col: int) -> None:
+        self.board[row][col].covered = False
+
+    def set_mine(self, row: int, col: int) -> None:
+        self.board[row][col].is_mine = True
+
+    def set_flagged(self, row: int, col: int) -> None:
+        self.board[row][col].flagged = True
+
+    def remove_flag(self, row: int, col: int) -> None:
+        self.board[row][col].flagged = False
+
     def set_mines(self, mines: list[tuple]) -> None:
         for mine_location in mines:
-            self.board[mine_location[0]][mine_location[1]].set_mine()
+            self.set_mine(row=mine_location[0], col=mine_location[1])
