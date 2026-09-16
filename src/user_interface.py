@@ -67,6 +67,13 @@ BOARD_BOTTOM = 50
 WINDOW_WIDTH = 600
 WINDOW_HEIGHT = 650
 
+COLUMN_LABELS = "ABCDEFGHIJ"
+
+# Standard Minesweeper colors for the adjacent mine counts
+NUMBER_COLORS = {1: arcade.color.BLUE, 2: arcade.color.GREEN, 3: arcade.color.RED,
+                 4: arcade.color.DARK_BLUE, 5: arcade.color.MAROON, 6: arcade.color.TEAL,
+                 7: arcade.color.BLACK, 8: arcade.color.GRAY}
+
 
 class MinesweeperWindow(arcade.Window):
     """Simple Arcade UI for Minesweeper."""
@@ -74,33 +81,53 @@ class MinesweeperWindow(arcade.Window):
     def __init__(self):
         super().__init__(WINDOW_WIDTH, WINDOW_HEIGHT, "Minesweeper")
 
-        self.game = GameManager(10)
+        # The game is created once the player confirms a mine count
+        self.game = None
+        self.input_handler = None
+        self.mine_count_input = ""
+        self.setup_error = ""
 
-        self.input_handler = InputHandler(
-            self.game,
-            CELL_SIZE,
-            BOARD_LEFT,
-            BOARD_BOTTOM
-        )
+    def start_game(self, num_mines):
+        """Create a new game and rebuild the input handler for it."""
+        self.game = GameManager(num_mines)
+        self.input_handler = InputHandler(self.game, CELL_SIZE, BOARD_LEFT, BOARD_BOTTOM)
+
+    def confirm_mine_count(self):
+        """Start a game with the typed mine count, or report that it is invalid."""
+        num_mines = int(self.mine_count_input or 10)
+        if not (10 <= num_mines <= 20):
+            self.setup_error = "Number of mines must be 10 to 20"
+            return
+
+        self.start_game(num_mines)
 
     def on_draw(self):
-        """Draw the current board."""
+        """Draw the setup screen or the current board."""
         self.clear(arcade.color.WHITE)
+
+        if self.game is None:
+            self.draw_setup()
+            return
+
+        board_top = BOARD_BOTTOM + board_manager.BOARD_SIZE * CELL_SIZE
 
         for row in range(board_manager.BOARD_SIZE):
             for col in range(board_manager.BOARD_SIZE):
 
                 left = BOARD_LEFT + col * CELL_SIZE
                 bottom = BOARD_BOTTOM + row * CELL_SIZE
+                covered = self.game.board.is_covered(row, col)
+                is_mine = self.game.board.is_mine(row, col)
 
                 if self.game.board.is_flagged(row, col):
                     color = arcade.color.YELLOW
 
-                elif self.game.board.is_covered(row, col):
-                    color = arcade.color.GRAY
-
-                elif self.game.board.is_mine(row, col):
+                # Uncovered mines are shown, and all mines are shown when the game is lost
+                elif is_mine and (self.game.is_lost or not covered):
                     color = arcade.color.RED
+
+                elif covered:
+                    color = arcade.color.GRAY
 
                 else:
                     color = arcade.color.LIGHT_GRAY
@@ -113,25 +140,65 @@ class MinesweeperWindow(arcade.Window):
                     color
                 )
 
-        arcade.draw_text(
-            f"Mines: {self.game.mine_count}",
-            50,
-            575,
-            arcade.color.BLACK,
-            18
-        )
+                # Uncovered safe cells show how many mines are adjacent
+                if not covered and not is_mine:
+                    adjacent = self.game.board.adjacent_mines(row, col)
+                    if adjacent > 0:
+                        arcade.draw_text(str(adjacent), left + CELL_SIZE / 2, bottom + CELL_SIZE / 2,
+                                         NUMBER_COLORS[adjacent], 20, anchor_x="center", anchor_y="center")
+
+        # Column and row labels: columns A-J, rows 1-10
+        for col, label in enumerate(COLUMN_LABELS):
+            arcade.draw_text(label, BOARD_LEFT + col * CELL_SIZE + CELL_SIZE / 2, board_top + 6,
+                             arcade.color.BLACK, 14, anchor_x="center")
+
+        for row in range(board_manager.BOARD_SIZE):
+            arcade.draw_text(str(row + 1), BOARD_LEFT - 10, BOARD_BOTTOM + row * CELL_SIZE + CELL_SIZE / 2,
+                             arcade.color.BLACK, 14, anchor_x="right", anchor_y="center")
+
+        arcade.draw_text(f"Flags: {self.game.mine_count}", BOARD_LEFT, board_top + 30, arcade.color.BLACK, 18)
 
         if self.game.is_lost:
-            arcade.draw_text(
-                "Game Over",
-                400,
-                575,
-                arcade.color.RED,
-                18
-            )
+            status, status_color = "Game Over: Loss", arcade.color.RED
+        elif self.game.is_won:
+            status, status_color = "Victory", arcade.color.GREEN
+        else:
+            status, status_color = "Playing", arcade.color.BLACK
+
+        arcade.draw_text(status, BOARD_LEFT + board_manager.BOARD_SIZE * CELL_SIZE, board_top + 30,
+                         status_color, 18, anchor_x="right")
+
+    def draw_setup(self):
+        """Draw the mine count selection screen."""
+        arcade.draw_text("Minesweeper", WINDOW_WIDTH / 2, 420, arcade.color.BLACK, 32, anchor_x="center")
+        arcade.draw_text("Type the number of mines (10-20) and press Enter", WINDOW_WIDTH / 2, 360,
+                         arcade.color.BLACK, 16, anchor_x="center")
+        arcade.draw_text(f"Mines: {self.mine_count_input or 10}", WINDOW_WIDTH / 2, 300,
+                         arcade.color.BLUE, 28, anchor_x="center")
+
+        if self.setup_error:
+            arcade.draw_text(self.setup_error, WINDOW_WIDTH / 2, 260, arcade.color.RED, 16, anchor_x="center")
+
+    def on_key_press(self, key, modifiers):
+        """Handle mine count entry, game start, and restart."""
+        if self.game is None:
+            if arcade.key.KEY_0 <= key <= arcade.key.KEY_9:
+                self.mine_count_input += chr(key)
+                self.setup_error = ""
+            elif key == arcade.key.BACKSPACE:
+                self.mine_count_input = self.mine_count_input[:-1]
+                self.setup_error = ""
+            elif key == arcade.key.ENTER:
+                self.confirm_mine_count()
+        elif key == arcade.key.R:
+            # R starts a new game with the same mine count
+            self.start_game(self.game.num_mines)
 
     def on_mouse_press(self, x, y, button, modifiers):
         """Send mouse input to the input handler."""
+        if self.game is None or self.game.is_lost or self.game.is_won:
+            return
+
         self.input_handler.handle_click(x, y, button)
 
 

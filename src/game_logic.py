@@ -47,13 +47,16 @@ class GameManager:
         self.board.set_mines(mine_locations)
 
     def reveal_cell(self, row: int, col: int) -> None: # Original code written by Drew Medlock
-        # Being flagged prevents the cell from being uncovered
-        if not self.board.is_flagged(row, col):
+        # Being flagged prevents the cell from being uncovered, and already uncovered cells are ignored
+        if not self.board.is_flagged(row, col) and self.board.is_covered(row, col):
             self.board.uncover_cell(row, col)
             if self.board.is_mine(row, col):
                 self.is_lost = True
             else:
                 self.cells_to_clear -= 1
+                # Win by uncovering every cell that does not contain a mine
+                if self.cells_to_clear <= 0:
+                    self.is_won = True
 
     def flag_cell(self, row: int, col: int) -> None: # Original code written by Drew Medlock
         self.board.set_flagged(row, col)
