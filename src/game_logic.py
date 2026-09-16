@@ -48,6 +48,7 @@ class GameManager:
         locations.remove((user_row, user_col))
         mine_locations = random.sample(locations, self.num_mines)
         self.board.set_mines(mine_locations)
+        self.are_mines_populated = True
 
     def reveal_cell(self, row: int, col: int) -> None: # Original code written by Drew Medlock
         # Being flagged prevents the cell from being uncovered
