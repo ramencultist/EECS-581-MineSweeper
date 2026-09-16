@@ -56,7 +56,6 @@ The challenges or limitations you faced while using AI: Validating logical execu
 
 Update 9/16/2026 - Carter Steenhard and DeepSeek V4.1 Flash:
 A description of how and why AI was used: DeepSeek V4.1 Flash used to implement the mine count selection, labels, numbers, status, flag counter, reveal mines on loss, and restart update
-The specific prompts you entered: Do the phase 1 stuff, of course build off what is already there, do not slopify things, make minimal diff
 How you validated and revised the AI output: Proofreading, logic tests for the board and game logic, and a scripted window test covering setup, revealing, flagging, loss, restart, and win
 The challenges or limitations you faced while using AI: Keeping the diff minimal while matching the existing code style and validating the arcade API calls against the installed library version
 Attributions: 
