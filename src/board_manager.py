@@ -10,8 +10,8 @@ Description: Hold the 10x10 grid of cells as a 2D list. Contain methods for upda
 
 Update Description: Add adjacent_mines to count the mines in the up to eight cells around a given cell
 
-Inputs:
-Outputs:
+Inputs: Mine locations and cell state changes from the game logic
+Outputs: Cell state and adjacent mine count queries for the game logic and UI
 External Sources: DeepSeek V4.1 Flash
 Attributions:
 
@@ -61,6 +61,7 @@ class BoardManager:
             for neighbor_col in range(col - 1, col + 2):
                 if neighbor_row == row and neighbor_col == col:
                     continue
+                # Skip neighbors that fall outside the board on the edges and corners
                 if 0 <= neighbor_row < BOARD_SIZE and 0 <= neighbor_col < BOARD_SIZE:
                     if self.is_mine(neighbor_row, neighbor_col):
                         count += 1

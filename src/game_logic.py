@@ -7,8 +7,8 @@ Descrption: Handle all of the hidden game state knowledge and set the states of 
 
 Update Description: Add the win condition and ignore already uncovered cells when revealing
 
-Inputs:
-Outputs:
+Inputs: Mine count selection and reveal/flag actions from the input handler
+Outputs: Board state updates, remaining flags, and win/loss status for the UI
 External Sources: DeepSeek V4.1 Flash
 Attributions:
 
