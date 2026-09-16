@@ -8,11 +8,19 @@ Description: Hold the states for each cell inside of the board
 Class Name: BoardManager
 Description: Hold the 10x10 grid of cells as a 2D list. Contain methods for updating the cell states.
 
+Update Description: Add adjacent_mines to count the mines in the up to eight cells around a given cell
+
 Inputs:
 Outputs:
-External Sources:
+External Sources: DeepSeek V4.1 Flash
 Attributions:
-Authors: Drew Medlock
+
+Update 9/16/2026 - Carter Steenhard and DeepSeek V4.1 Flash:
+A description of how and why AI was used: DeepSeek V4.1 Flash used to add the adjacent_mines method for the UI number display
+The specific prompts you entered: Do the phase 1 stuff, of course build off what is already there, do not slopify things, make minimal diff
+How you validated and revised the AI output: Proofreading, logic tests checking every cell's count against a reference, and a scripted window test of the number display
+The challenges or limitations you faced while using AI: Keeping the change minimal while matching the existing getter style
+Authors: Drew Medlock, Carter Steenhard
 Creation Date: 9/9/2026
 """
 

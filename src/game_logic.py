@@ -5,11 +5,19 @@ Description: Handle game logic and make calls to board_manager objects
 Class Name: GameManager
 Descrption: Handle all of the hidden game state knowledge and set the states of the board, following the game logic
 
+Update Description: Add the win condition and ignore already uncovered cells when revealing
+
 Inputs:
 Outputs:
-External Sources:
+External Sources: DeepSeek V4.1 Flash
 Attributions:
-Authors: Drew Medlock
+
+Update 9/16/2026 - Carter Steenhard and DeepSeek V4.1 Flash:
+A description of how and why AI was used: DeepSeek V4.1 Flash used to add the win condition and the guard against revealing an already uncovered cell
+The specific prompts you entered: Do the phase 1 stuff, of course build off what is already there, do not slopify things, make minimal diff
+How you validated and revised the AI output: Proofreading, logic tests for win, loss, repeated reveals, and flag counting, and a scripted window test of the status indicator
+The challenges or limitations you faced while using AI: Keeping the win condition accurate when a cell is revealed more than once and matching the existing style
+Authors: Drew Medlock, Carter Steenhard
 Creation Date: 9/14/2026
 """
 
@@ -46,7 +54,7 @@ class GameManager:
         mine_locations = random.sample(locations, self.num_mines)
         self.board.set_mines(mine_locations)
 
-    def reveal_cell(self, row: int, col: int) -> None: # Original code written by Drew Medlock
+    def reveal_cell(self, row: int, col: int) -> None: # Original code written by Drew Medlock, updated by Carter Steenhard and DeepSeek V4.1 Flash
         # Being flagged prevents the cell from being uncovered, and already uncovered cells are ignored
         if not self.board.is_flagged(row, col) and self.board.is_covered(row, col):
             self.board.uncover_cell(row, col)
