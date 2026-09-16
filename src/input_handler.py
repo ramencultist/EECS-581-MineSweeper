@@ -77,6 +77,8 @@ class InputHandler:
 
         # Left click reveals a covered cell
         if button == arcade.MOUSE_BUTTON_LEFT:
+            if self.game.are_mines_populated:
+                self.game.populate_mines(row, col)
             if self.game.board.is_covered(row, col):
                 self.game.reveal_cell(row, col)
 

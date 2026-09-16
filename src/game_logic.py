@@ -36,13 +36,16 @@ class GameManager:
         self.mine_count = self.num_mines # will be updated with by decreasing when flagging
         self.flags = 0
         self.cells_to_clear = board_manager.BOARD_SIZE ** 2 - self.num_mines
-        self.populate_mines()
+        self.are_mines_populated = False
 
-    def populate_mines(self) -> None: # Original code written by Drew Medlock
+
+
+    def populate_mines(self, user_row, user_col) -> None: # Original code written by Drew Medlock
         """
         Generates a list of all the possible locations, then picks the mines from it
         """
         locations = [(row, col) for row in range(board_manager.BOARD_SIZE) for col in range(board_manager.BOARD_SIZE)]
+        locations.remove((user_row, user_col))
         mine_locations = random.sample(locations, self.num_mines)
         self.board.set_mines(mine_locations)
 
