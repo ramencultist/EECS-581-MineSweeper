@@ -3,7 +3,7 @@ Module Name: board_manager.py
 Description: Hold and manage a 2D list of cells
 
 Class Name: Cell
-Description: Hold the states for each cell inside of the board
+Description: Hold the states for each cell inside the board
 
 Class Name: BoardManager
 Description: Hold the 10x10 grid of cells as a 2D list. Contain methods for updating the cell states.

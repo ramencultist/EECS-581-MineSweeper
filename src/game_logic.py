@@ -3,7 +3,7 @@ Module Name: game_logic.py
 Description: Handle game logic and make calls to board_manager objects
 
 Class Name: GameManager
-Descrption: Handle all of the hidden game state knowledge and set the states of the board, following the game logic
+Description: Handle all the hidden game state knowledge and set the states of the board, following the game logic
 
 Inputs:
 Outputs:
@@ -18,7 +18,7 @@ import random # Random is used to generate the mine locations
 
 class GameManager:
     """
-    Game manager is responsiglve for interacting with the board to update it accordinging to the game logic.
+    Game manager is responsible for interacting with the board to update it according to the game logic.
     """
     def __init__(self, num_mines) -> None: # Original code written by Drew Medlock
         """
@@ -36,15 +36,19 @@ class GameManager:
         self.mine_count = self.num_mines # will be updated with by decreasing when flagging
         self.flags = 0
         self.cells_to_clear = board_manager.BOARD_SIZE ** 2 - self.num_mines
-        self.populate_mines()
+        self.are_mines_populated = False
 
-    def populate_mines(self) -> None: # Original code written by Drew Medlock
+
+
+    def populate_mines(self, user_row, user_col) -> None: # Original code written by Drew Medlock
         """
         Generates a list of all the possible locations, then picks the mines from it
         """
         locations = [(row, col) for row in range(board_manager.BOARD_SIZE) for col in range(board_manager.BOARD_SIZE)]
+        locations.remove((user_row, user_col))
         mine_locations = random.sample(locations, self.num_mines)
         self.board.set_mines(mine_locations)
+        self.are_mines_populated = True
 
     def reveal_cell(self, row: int, col: int) -> None: # Original code written by Drew Medlock
         # Being flagged prevents the cell from being uncovered
