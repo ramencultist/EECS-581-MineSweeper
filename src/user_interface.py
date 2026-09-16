@@ -5,9 +5,13 @@ Description: Display the Minesweeper board using Python Arcade
 Class Name: MinesweeperWindow
 Description: Draw the board and pass user input to InputHandler
 
+Update Description: Add mine count selection (10-20) with validation, A-J/1-10 board labels,
+adjacent mine numbers (0-8), Playing/Victory/Game Over: Loss status, remaining flag counter,
+reveal all mines on loss, and R to restart
+
 Inputs: Board state
 Outputs: Game window
-External Sources: ChatGPT
+External Sources: ChatGPT, DeepSeek V4.1 Flash
 LLM AND GENERATIVE AI TOOLS:
 A description of how and why AI was used: ChatGPT used for drafting and revising code with new, unfamiliar UI library
 The specific prompts you entered: 
@@ -49,8 +53,14 @@ Mine count user-specified (10–20) at game start
   
 How you validated and revised the AI output: Proofreading, checking for sound logic, and testing, making sure it follows my original intentions and logic for a standard UI library
 The challenges or limitations you faced while using AI: Validating logical execution of the UI code and ensuring that the UI functioned as intended took a significant amount of proofreading and testing.
+
+Update 9/16/2026 - Carter Steenhard and DeepSeek V4.1 Flash:
+A description of how and why AI was used: DeepSeek V4.1 Flash used to implement the mine count selection, labels, numbers, status, flag counter, reveal mines on loss, and restart update
+The specific prompts you entered: Do the phase 1 stuff, of course build off what is already there, do not slopify things, make minimal diff
+How you validated and revised the AI output: Proofreading, logic tests for the board and game logic, and a scripted window test covering setup, revealing, flagging, loss, restart, and win
+The challenges or limitations you faced while using AI: Keeping the diff minimal while matching the existing code style and validating the arcade API calls against the installed library version
 Attributions: 
-Authors: Kyler Russell, Blake Pennel
+Authors: Kyler Russell, Blake Pennel, Carter Steenhard
 Creation Date: 9/15/2026
 """
 import arcade

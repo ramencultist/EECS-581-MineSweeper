@@ -47,7 +47,7 @@ class BoardManager:
     def is_flagged(self, row: int, col: int) -> bool: # Original code written by Drew Medlock
         return self.board[row][col].flagged
 
-    def adjacent_mines(self, row: int, col: int) -> int: # Original code written for EECS 581 Project 1
+    def adjacent_mines(self, row: int, col: int) -> int: # Original code written by Carter Steenhard and DeepSeek V4.1 Flash
         """Count the mines in the up to eight cells that surround the given cell."""
         count = 0
         for neighbor_row in range(row - 1, row + 2):
