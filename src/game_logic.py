@@ -3,7 +3,7 @@ Module Name: game_logic.py
 Description: Handle game logic and make calls to board_manager objects
 
 Class Name: GameManager
-Descrption: Handle all of the hidden game state knowledge and set the states of the board, following the game logic
+Description: Handle all the hidden game state knowledge and set the states of the board, following the game logic
 
 Inputs:
 Outputs:
@@ -18,7 +18,7 @@ import random # Random is used to generate the mine locations
 
 class GameManager:
     """
-    Game manager is responsiglve for interacting with the board to update it accordinging to the game logic.
+    Game manager is responsible for interacting with the board to update it according to the game logic.
     """
     def __init__(self, num_mines) -> None: # Original code written by Drew Medlock
         """
