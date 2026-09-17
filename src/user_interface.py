@@ -11,7 +11,7 @@ reveal all mines on loss, and R to restart
 
 Inputs: Board state
 Outputs: Game window
-External Sources: ChatGPT, DeepSeek V4.1 Flash
+External Sources: ChatGPT 5.6 Sol High Thinking, DeepSeek V4.1 Flash
 LLM AND GENERATIVE AI TOOLS:
 A description of how and why AI was used: ChatGPT used for drafting and revising code with new, unfamiliar UI library
 The specific prompts you entered: 
