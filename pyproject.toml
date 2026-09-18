@@ -1,0 +1,7 @@
+[project]
+name = "eecs-581-minesweeper"
+version = "0.1.0"
+requires-python = ">=3.14"
+dependencies = [
+    "arcade>=3.3.3",
+]
