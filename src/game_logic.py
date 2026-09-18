@@ -12,6 +12,8 @@ Outputs: Board state updates, remaining flags, and win/loss status for the UI
 External Sources: DeepSeek V4.1 Flash
 Attributions:
 
+Update 9/18/2026 - Alex Rawson
+Introduce a simple adjacent-clear process that automatically uncovers all of the nodes in a 3x3 grid centered on the selected node if that node is not adjacent to a mine.
 Update 9/16/2026 - Carter Steenhard and DeepSeek V4.1 Flash:
 A description of how and why AI was used: DeepSeek V4.1 Flash used to add the win condition and the guard against revealing an already uncovered cell
 How you validated and revised the AI output: Proofreading, logic tests for win, loss, repeated reveals, and flag counting, and a scripted window test of the status indicator
@@ -68,6 +70,12 @@ class GameManager:
                 # Win by uncovering every cell that does not contain a mine
                 if self.cells_to_clear <= 0:
                     self.is_won = True
+                # Perform the recursive-uncover process
+                if self.board.adjacent_mines(row, col) == 0:
+                    for adjacent_row in range(row - 1, row + 2):
+                        for adjacent_col in range(col - 1, col + 2):
+                            if adjacent_row in range(0, board_manager.BOARD_SIZE) and adjacent_col in range(0, board_manager.BOARD_SIZE):
+                                self.reveal_cell(adjacent_row, adjacent_col)
 
     def flag_cell(self, row: int, col: int) -> None: # Original code written by Drew Medlock
         self.board.set_flagged(row, col)
