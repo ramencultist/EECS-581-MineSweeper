@@ -21,11 +21,11 @@ Update 9/16/2026 - Carter Steenhard and DeepSeek V4.1 Flash:
 A description of how and why AI was used: DeepSeek V4.1 Flash used to add the adjacent_mines method for the UI number display
 How you validated and revised the AI output: Proofreading, logic tests checking every cell's count against a reference, and a scripted window test of the number display
 The challenges or limitations you faced while using AI: Keeping the change minimal while matching the existing getter style
-Authors: Drew Medlock, Carter Steenhard
+Authors: Drew Medlock, Carter Steenhard, Alex Rawson
 Creation Date: 9/9/2026
 """
 
-BOARD_SIZE = 10
+BOARD_SIZE = 10 # const value used for board size across game
 
 class Cell:
     """
@@ -48,12 +48,15 @@ class BoardManager:
     # Getters
 
     def is_mine(self, row: int, col: int) -> bool: # Original code written by Drew Medlock
+        """ Returns True if the cell is a mine, False otherwise. """
         return self.board[row][col].is_mine
 
     def is_covered(self, row: int, col: int) -> bool: # Original code written by Drew Medlock
+        """ Returns True if the cell is covered, False otherwise. """
         return self.board[row][col].covered
 
     def is_flagged(self, row: int, col: int) -> bool: # Original code written by Drew Medlock
+        """ Returns True if the cell is flagged, False otherwise. """
         return self.board[row][col].flagged
 
     def adjacent_mines(self, row: int, col: int) -> int: # Original code written by Carter Steenhard and DeepSeek V4.1 Flash
@@ -76,17 +79,22 @@ class BoardManager:
     # Setters
 
     def uncover_cell(self, row: int, col: int) -> None: # Original code written by Drew Medlock
+        """ Sets cell covered state to False. """
         self.board[row][col].covered = False
 
     def set_mine(self, row: int, col: int) -> None: # Original code written by Drew Medlock
+        """ Sets mine state to True. """
         self.board[row][col].is_mine = True
 
     def set_flagged(self, row: int, col: int) -> None: # Original code written by Drew Medlock
+        """ Sets cell flagged state to True. """
         self.board[row][col].flagged = True
 
     def remove_flag(self, row: int, col: int) -> None: # Original code written by Drew Medlock
+        """ Sets cell flagged state to False. """
         self.board[row][col].flagged = False
 
     def set_mines(self, mines: list[tuple]) -> None: # Original code written by Drew Medlock
+        """ Takes in a list of mine locations, and sets those cells to mines"""
         for mine_location in mines:
             self.set_mine(row=mine_location[0], col=mine_location[1])
