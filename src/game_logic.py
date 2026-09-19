@@ -14,6 +14,7 @@ Attributions:
 
 Update 9/18/2026 - Alex Rawson
 Introduce a simple adjacent-clear process that automatically uncovers all of the nodes in a 3x3 grid centered on the selected node if that node is not adjacent to a mine.
+Additionally, make the game easier by ensuring the first click always reveals a node without an adjacent mine.
 Update 9/16/2026 - Carter Steenhard and DeepSeek V4.1 Flash:
 A description of how and why AI was used: DeepSeek V4.1 Flash used to add the win condition and the guard against revealing an already uncovered cell
 How you validated and revised the AI output: Proofreading, logic tests for win, loss, repeated reveals, and flag counting, and a scripted window test of the status indicator
@@ -53,8 +54,13 @@ class GameManager:
         """
         Generates a list of all the possible locations, then picks the mines from it
         """
+        # Generate a list of every cell on the board
         locations = [(row, col) for row in range(board_manager.BOARD_SIZE) for col in range(board_manager.BOARD_SIZE)]
+        # Remove the user's selection and the adjacent cells
         locations.remove((user_row, user_col))
+        for neighbor in self.board.neighbors(user_row, user_col):
+            locations.remove(neighbor)
+        # Set the locations accordingly
         mine_locations = random.sample(locations, self.num_mines)
         self.board.set_mines(mine_locations)
         self.are_mines_populated = True
