@@ -72,10 +72,8 @@ class GameManager:
                     self.is_won = True
                 # Perform the recursive-uncover process
                 if self.board.adjacent_mines(row, col) == 0:
-                    for adjacent_row in range(row - 1, row + 2):
-                        for adjacent_col in range(col - 1, col + 2):
-                            if adjacent_row in range(0, board_manager.BOARD_SIZE) and adjacent_col in range(0, board_manager.BOARD_SIZE):
-                                self.reveal_cell(adjacent_row, adjacent_col)
+                    for neighbor_row, neighbor_col in self.board.neighbors(row, col): 
+                        self.reveal_cell(neighbor_row, neighbor_col)
 
     def flag_cell(self, row: int, col: int) -> None: # Original code written by Drew Medlock
         self.board.set_flagged(row, col)
