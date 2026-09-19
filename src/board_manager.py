@@ -15,6 +15,8 @@ Outputs: Cell state and adjacent mine count queries for the game logic and UI
 External Sources: DeepSeek V4.1 Flash
 Attributions:
 
+Update 9/18/2026 - Alex Rawson
+Introduce a new BoardManager.neighbors helper method and refactor BoardManager.adjacent_mines to use it.
 Update 9/16/2026 - Carter Steenhard and DeepSeek V4.1 Flash:
 A description of how and why AI was used: DeepSeek V4.1 Flash used to add the adjacent_mines method for the UI number display
 How you validated and revised the AI output: Proofreading, logic tests checking every cell's count against a reference, and a scripted window test of the number display
@@ -57,15 +59,19 @@ class BoardManager:
     def adjacent_mines(self, row: int, col: int) -> int: # Original code written by Carter Steenhard and DeepSeek V4.1 Flash
         """Count the mines in the up to eight cells that surround the given cell."""
         count = 0
-        for neighbor_row in range(row - 1, row + 2):
-            for neighbor_col in range(col - 1, col + 2):
-                if neighbor_row == row and neighbor_col == col:
-                    continue
-                # Skip neighbors that fall outside the board on the edges and corners
-                if 0 <= neighbor_row < BOARD_SIZE and 0 <= neighbor_col < BOARD_SIZE:
-                    if self.is_mine(neighbor_row, neighbor_col):
-                        count += 1
+        for neighbor_row, neighbor_col in self.neighbors(row, col):
+            if self.is_mine(neighbor_row, neighbor_col):
+                count += 1
         return count
+
+    def neighbors(self, row: int, col: int) -> list[tuple[int, int]]: # Original code written by Alex Rawson
+        """Return all of the in-bounds neighbors of the given cell."""
+        neighbors = []
+        for adjacent_row in range(row - 1, row + 2):
+            for adjacent_col in range(col - 1, col + 2):
+                if adjacent_row in range(0, BOARD_SIZE) and adjacent_col in range(0, BOARD_SIZE) and not (adjacent_row == row and adjacent_col == col):
+                    neighbors.append((adjacent_row, adjacent_col))
+        return neighbors
 
     # Setters
 
