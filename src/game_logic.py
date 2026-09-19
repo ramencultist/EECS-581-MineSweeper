@@ -19,7 +19,7 @@ Update 9/16/2026 - Carter Steenhard and DeepSeek V4.1 Flash:
 A description of how and why AI was used: DeepSeek V4.1 Flash used to add the win condition and the guard against revealing an already uncovered cell
 How you validated and revised the AI output: Proofreading, logic tests for win, loss, repeated reveals, and flag counting, and a scripted window test of the status indicator
 The challenges or limitations you faced while using AI: Keeping the win condition accurate when a cell is revealed more than once and matching the existing style
-Authors: Drew Medlock, Carter Steenhard
+Authors: Drew Medlock, Carter Steenhard, Alex Rawson
 Creation Date: 9/14/2026
 """
 
@@ -66,6 +66,11 @@ class GameManager:
         self.are_mines_populated = True
 
     def reveal_cell(self, row: int, col: int) -> None: # Original code written by Drew Medlock, updated by Carter Steenhard and DeepSeek V4.1 Flash
+        """
+        This function will reveal a cell if it is not flagged or already revealed
+        If the cell has 0 neighboring mines it will recursively reveal all of it's neighbors
+        It updates the amount of cells cleared to keep track of the win condition of the game
+        """
         # Being flagged prevents the cell from being uncovered, and already uncovered cells are ignored
         if not self.board.is_flagged(row, col) and self.board.is_covered(row, col):
             self.board.uncover_cell(row, col)
@@ -82,6 +87,9 @@ class GameManager:
                         self.reveal_cell(neighbor_row, neighbor_col)
 
     def flag_cell(self, row: int, col: int) -> None: # Original code written by Drew Medlock
+        """
+        Sets a cell as flagged and updates the flag counter and mine_count accordingly
+        """
         self.board.set_flagged(row, col)
         self.flags += 1
         # Check for preventing mine_count to going to negative if more than num_mines flags are placed
@@ -89,6 +97,9 @@ class GameManager:
             self.mine_count -= 1
 
     def unflag_cell(self, row: int, col: int) -> None: # Original code written by Drew Medlock
+        """
+        Removes a cell as flagged and updates the mine_count accordingly
+        """
         self.board.remove_flag(row, col)
         self.flags -= 1
         # If there are more flags than the number of mines, then the mine_count shouldn't be increased from 0
