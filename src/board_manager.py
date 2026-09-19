@@ -98,3 +98,9 @@ class BoardManager:
         """ Takes in a list of mine locations, and sets those cells to mines"""
         for mine_location in mines:
             self.set_mine(row=mine_location[0], col=mine_location[1])
+
+    def clear_flags(self):
+        """ Clears all flags from all cells to be used when the game is lost, to show mine locations."""
+        for row in range(BOARD_SIZE):
+            for col in range(BOARD_SIZE):
+                self.remove_flag(row, col)

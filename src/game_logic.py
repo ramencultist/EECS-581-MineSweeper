@@ -76,6 +76,7 @@ class GameManager:
             self.board.uncover_cell(row, col)
             if self.board.is_mine(row, col):
                 self.is_lost = True
+                self.board.clear_flags()
             else:
                 self.cells_to_clear -= 1
                 # Win by uncovering every cell that does not contain a mine
