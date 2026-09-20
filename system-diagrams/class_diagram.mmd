@@ -1,0 +1,72 @@
+classDiagram
+    direction TB
+
+    class Cell {
+      +bool covered
+      +bool flagged
+      +bool is_mine
+    }
+
+    class BoardManager {
+      +List~List~Cell~~ board
+      +is_mine(row, col) bool
+      +is_covered(row, col) bool
+      +is_flagged(row, col) bool
+      +adjacent_mines(row, col) int
+      +neighbors(row, col) list
+      +uncover_cell(row, col) None
+      +set_mine(row, col) None
+      +set_mines(mines) None
+      +set_flagged(row, col) None
+      +remove_flag(row, col) None
+      +clear_flags() None
+    }
+
+    class GameManager {
+      +BoardManager board
+      +bool is_lost
+      +bool is_won
+      +bool are_mines_populated
+      +int num_mines
+      +int mine_count
+      +int flags
+      +int cells_to_clear
+      +populate_mines(user_row, user_col) None
+      +reveal_cell(row, col) None
+      +flag_cell(row, col) None
+      +unflag_cell(row, col) None
+    }
+
+    class InputHandler {
+      +GameManager game
+      +int cell_size
+      +int board_left
+      +int board_bottom
+      +handle_click(x, y, button) None
+    }
+
+    class MinesweeperWindow {
+      +GameManager game
+      +InputHandler input_handler
+      +str mine_count_input
+      +str setup_error
+      +start_game(num_mines) None
+      +confirm_mine_count() None
+      +draw_setup() None
+      +on_draw() None
+      +on_key_press(key, modifiers) None
+      +on_mouse_press(x, y, button, modifiers) None
+    }
+
+    class arcade_Window {
+      <<library>>
+    }
+
+    BoardManager "1" *-- "100" Cell : board
+    GameManager "1" *-- "1" BoardManager : board
+    MinesweeperWindow "1" *-- "0..1" GameManager : game
+    MinesweeperWindow "1" *-- "0..1" InputHandler : input_handler
+    InputHandler "1" --> "1" GameManager : game
+    MinesweeperWindow --|> arcade_Window
+    InputHandler ..> BoardManager : reads via game.board
+    MinesweeperWindow ..> BoardManager : reads via game.board
