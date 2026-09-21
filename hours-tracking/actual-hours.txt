@@ -1,0 +1,13 @@
+Hour breakdown:
+    Meetings: 14
+    Development: 6.5
+    Testing: 2.5
+    Documentation: 2
+
+Total Hours: 25 Hours
+
+Conclusion:
+    The estimated hours total of 25.25 hours was actually very similar to the real hours cost of 25 hours. This is due
+    to partly to a large part of the time cost being the static meetings cost of 14 hours. However, this similarity does
+    suggest that the planning poker estimate of hours has some merit to predicting a time estimate, when an hours per
+    point factor is applied.
