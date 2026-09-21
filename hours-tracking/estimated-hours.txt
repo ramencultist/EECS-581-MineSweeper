@@ -15,3 +15,6 @@ Game Logic -> 5 (effort) * .75 (person-hours per effort) = 3.75 person-hours
 Meetings -> 2 hour-long meetings * 7 members = 14 person-hours
 
 Total Estimated Hours: 25.25 Person-hours
+
+Actual Hours (recorded in the hours-tracking files):
+Total Actual Hours: 25.0 Person-hours

@@ -1,0 +1,9 @@
+Carter Steenhard Hours Tracking:
+
+Wednesday 9/9/2026:
+1 hour in meeting at 10AM - 11AM.
+
+Wednesday 9/16/2026:
+1 hour in scrum meeting from 10AM - 11AM.
+
+2 hours working on the user interface update (mine count selection, board labels, adjacent mine numbers, status indicator, flag counter, and restart) and the game logic support (adjacent mine counter and win detection), plus testing
